@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Untuk Kamu ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #09000f;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* BACKGROUND */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        linear-gradient(rgba(20,0,30,.65), rgba(5,0,15,.9)),
+        url("https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1600&q=80")
+        center/cover;
+      filter: blur(2px);
+      transform: scale(1.05);
+    }
+
+    /* INTRO */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #08000e;
+      transition: 1s;
+    }
+
+    .envelope {
+      text-align: center;
+      cursor: pointer;
+      animation: float 2s infinite ease-in-out;
+    }
+
+    .envelope-icon {
+      font-size: 90px;
+      filter: drop-shadow(0 0 20px #ff4fa3);
+    }
+
+    .envelope h2 {
+      margin-top: 15px;
+      font-size: 25px;
+    }
+
+    .envelope p {
+      margin-top: 8px;
+      color: #ffc4e2;
+    }
+
+    @keyframes float {
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    /* CONTENT */
+    main {
+      opacity: 0;
+      transition: 1.5s;
+    }
+
+    main.show {
+      opacity: 1;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 70px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero {
+      flex-direction: column;
+    }
+
+    .small {
+      color: #ff9fd0;
+      font-size: 15px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(45px, 13vw, 90px);
+      margin: 15px 0;
+      line-height: 1;
+      text-shadow: 0 0 25px rgba(255,70,160,.7);
+    }
+
+    .hero p {
+      max-width: 500px;
+      color: #f8dce9;
+      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    .button {
+      margin-top: 30px;
+      padding: 14px 25px;
+      border: none;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg,#ff3d91,#9b35ff);
+      box-shadow: 0 8px 30px rgba(255,50,150,.35);
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* CARD */
+    .card {
+      width: min(100%, 500px);
+      padding: 30px 25px;
+      border-radius: 28px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+
+    .card h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .card p {
+      color: #f5dce8;
+      line-height: 1.8;
+    }
+
+    /* PHOTO */
+    .photo-section {
+      flex-direction: column;
+    }
+
+    .photo {
+      width: min(90vw, 360px);
+      height: 460px;
+      object-fit: cover;
+      border-radius: 30px;
+      box-shadow: 0 0 40px rgba(255,70,170,.35);
+      cursor: pointer;
+      transition: .4s;
+    }
+
+    .photo:hover {
+      transform: scale(1.02);
+    }
+
+    .caption {
+      margin-top: 20px;
+      color: #ffc8e4;
+    }
+
+    /* COUNTDOWN */
+    .counter {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+
+    .time {
+      min-width: 70px;
+      padding: 15px 10px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.1);
+    }
+
+    .time strong {
+      display: block;
+      font-size: 25px;
+    }
+
+    .time span {
+      font-size: 11px;
+      color: #ffc2df;
+    }
+
+    /* FINAL */
+    .final h2 {
+      font-size: 45px;
+      margin-bottom: 20px;
+    }
+
+    .heart {
+      font-size: 70px;
+      animation: heartbeat 1.2s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%,100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.25);
+      }
+    }
+
+    /* FLOATING HEARTS */
+    .heart-float {
+      position: fixed;
+      bottom: -30px;
+      pointer-events: none;
+      animation: rise linear forwards;
+      z-index: 10;
+    }
+
+    @keyframes rise {
+      to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* MUSIC */
+    .music {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 15;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.3);
+      background: rgba(20,0,30,.65);
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    /* LIGHTBOX */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.9);
+      z-index: 30;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 20px;
+    }
+
+    #lightbox span {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 35px;
+      cursor: pointer;
+    }
+
+    footer {
+      padding: 30px;
+      text-align: center;
+      color: #d7b9ca;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg"></div>
+
+  <!-- INTRO -->
+  <div id="intro">
+    <div class="envelope" onclick="openLetter()">
+      <div class="envelope-icon">💌</div>
+      <h2>Ada sesuatu untukmu...</h2>
+      <p>Tap untuk membuka ❤️</p>
+    </div>
+  </div>
+
+  <!-- MUSIC -->
+  <button class="music" onclick="toggleMusic()" id="musicBtn">🎵</button>
+
+  <!-- MUSIC URL GANTI DI SINI -->
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946b6e2f5e.mp3">
+  </audio>
+
+  <main id="content">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="small">A little website for</div>
+
+      <h1>My Love ❤️</h1>
+
+      <p>
+        Aku membuat halaman kecil ini khusus untuk seseorang
+        yang sangat berarti bagiku.
+      </p>
+
+      <button class="button" onclick="scrollToMessage()">
+        Buka pesanku 💌
+      </button>
+    </section>
+
+    <!-- MESSAGE -->
+    <section id="message">
+      <div class="card">
+        <h2>Untuk Kamu ❤️</h2>
+
+        <p>
+          Terima kasih sudah hadir dalam hidupku.
+          Mungkin aku tidak selalu bisa mengatakan semuanya
+          secara langsung, tetapi aku ingin kamu tahu bahwa
+          kamu adalah seseorang yang sangat spesial bagiku.
+          <br><br>
+          Semoga kita selalu bisa membuat banyak kenangan
+          indah bersama.
+          <br><br>
+          Jangan lupa tersenyum hari ini 😊❤️
+        </p>
+      </div>
+    </section>
+
+    <!-- PHOTO -->
+    <section class="photo-section">
+
+      <!-- GANTI URL FOTO INI -->
+      <img
+        class="photo"
+        id="mainPhoto"
+        src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        alt="Our Memory"
+        onclick="openPhoto()"
+      >
+
+      <p class="caption">
+        "Satu foto, sejuta kenangan." ❤️
+      </p>
+
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section>
+      <div class="card">
+
+        <div class="small">Our special day</div>
+
+        <h2>Hari Kita ❤️</h2>
+
+        <p>
+          Waktu terus berjalan, tetapi kenangan
+          yang kita buat akan selalu menjadi sesuatu
+          yang berharga.
+        </p>
+
+        <div class="counter">
+
+          <div class="time">
+            <strong id="days">0</strong>
+            <span>HARI</span>
+          </div>
+
+          <div class="time">
+            <strong id="hours">0</strong>
+            <span>JAM</span>
+          </div>
+
+          <div class="time">
+            <strong id="minutes">0</strong>
+            <span>MENIT</span>
+          </div>
+
+          <div class="time">
+            <strong id="seconds">0</strong>
+            <span>DETIK</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <section class="final">
+
+      <div>
+
+        <div class="heart">❤️</div>
+
+        <h2>Stay With Me</h2>
+
+        <p>
+          Semoga cerita kita terus berlanjut
+          dan menjadi semakin indah.
+        </p>
+
+        <button class="button" onclick="makeHearts()">
+          Kirim ❤️
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" onclick="closePhoto()">
+    <span>×</span>
+    <img id="bigPhoto">
+  </div>
+
+  <footer>
+    Made with ❤️
+  </footer>
+
+  <script>
+
+    const intro = document.getElementById("intro");
+    const content = document.getElementById("content");
+    const music = document.getElementById("music");
+    const musicBtn = document.getElementById("musicBtn");
+
+    function openLetter() {
+
+      intro.style.opacity = "0";
+
+      setTimeout(() => {
+        intro.style.display = "none";
+        content.classList.add("show");
+
+        music.play().catch(() => {});
+
+        makeHearts();
+
+      }, 900);
+    }
+
+    function toggleMusic() {
+
+      if (music.paused) {
+        music.play();
+        musicBtn.innerHTML = "🎵";
+      } else {
+        music.pause();
+        musicBtn.innerHTML = "🔇";
+      }
+
+    }
+
+    function scrollToMessage() {
+
+      document.getElementById("message")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+    function openPhoto() {
+
+      const lightbox =
+        document.getElementById("lightbox");
+
+      const bigPhoto =
+        document.getElementById("bigPhoto");
+
+      bigPhoto.src =
+        document.getElementById("mainPhoto").src;
+
+      lightbox.style.display = "flex";
+    }
+
+    function closePhoto() {
+      document.getElementById("lightbox")
+        .style.display = "none";
+    }
+
+    function makeHearts() {
+
+      for (let i = 0; i < 15; i++) {
+
+        setTimeout(() => {
+
+          const heart =
+            document.createElement("div");
+
+          heart.className = "heart-float";
+
+          heart.innerHTML =
+            ["❤️","💗","💖","💕","💘"]
+            [Math.floor(Math.random() * 5)];
+
+          heart.style.left =
+            Math.random() * 100 + "vw";
+
+          heart.style.fontSize =
+            (15 + Math.random() * 25) + "px";
+
+          heart.style.animationDuration =
+            (4 + Math.random() * 4) + "s";
+
+          document.body.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 8000);
+
+        }, i * 150);
+
+      }
+
+    }
+
+    /* AUTO HEARTS */
+    setInterval(() => {
+
+      if (Math.random() > .5) {
+        makeHearts();
+      }
+
+    }, 7000);
+
+
+    /*
+      GANTI TANGGAL DI SINI
+
+      Contoh:
+      20 Oktober 2026
+    */
+
+    const specialDate =
+      new Date("October 20, 2026 00:00:00");
+
+    function updateCounter() {
+
+      const now = new Date();
+
+      const difference =
+        Math.abs(now - specialDate);
+
+      const days =
+        Math.floor(
+          difference / (1000 * 60 * 60 * 24)
+        );
+
+      const hours =
+        Math.floor(
+          (difference / (1000 * 60 * 60)) % 24
+        );
+
+      const minutes =
+        Math.floor(
+          (difference / (1000 * 60)) % 60
+        );
+
+      const seconds =
+        Math.floor(
+          (difference / 1000) % 60
+        );
+
+      document.getElementById("days")
+        .textContent = days;
+
+      document.getElementById("hours")
+        .textContent = hours;
+
+      document.getElementById("minutes")
+        .textContent = minutes;
+
+      document.getElementById("seconds")
+        .textContent = seconds;
+
+    }
+
+    updateCounter();
+
+    setInterval(updateCounter, 1000);
+
+  </script>
+
+</body>
+  </html>

@@ -3,610 +3,779 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our 7th Anniversary 💙</title>
 
-  <title>Untuk Kamu ❤️</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- React -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background: #09000f;
-      color: white;
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, #bfdbfe, transparent 35%),
+        linear-gradient(135deg, #dbeafe, #ffffff, #eff6ff);
       overflow-x: hidden;
     }
 
-    /* BACKGROUND */
-    .bg {
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      background:
-        linear-gradient(rgba(20,0,30,.65), rgba(5,0,15,.9)),
-        url("https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1600&q=80")
-        center/cover;
-      filter: blur(2px);
-      transform: scale(1.05);
+    button {
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* INTRO */
-    #intro {
-      position: fixed;
-      inset: 0;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #08000e;
-      transition: 1s;
+    .floating {
+      animation: floating 3s ease-in-out infinite;
     }
 
-    .envelope {
-      text-align: center;
-      cursor: pointer;
-      animation: float 2s infinite ease-in-out;
-    }
-
-    .envelope-icon {
-      font-size: 90px;
-      filter: drop-shadow(0 0 20px #ff4fa3);
-    }
-
-    .envelope h2 {
-      margin-top: 15px;
-      font-size: 25px;
-    }
-
-    .envelope p {
-      margin-top: 8px;
-      color: #ffc4e2;
-    }
-
-    @keyframes float {
+    @keyframes floating {
+      0%, 100% {
+        transform: translateY(0) rotate(-3deg);
+      }
       50% {
-        transform: translateY(-12px);
+        transform: translateY(-12px) rotate(3deg);
       }
     }
 
-    /* CONTENT */
-    main {
-      opacity: 0;
-      transition: 1.5s;
-    }
-
-    main.show {
-      opacity: 1;
-    }
-
-    section {
-      min-height: 100vh;
-      padding: 70px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .hero {
-      flex-direction: column;
-    }
-
-    .small {
-      color: #ff9fd0;
-      font-size: 15px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      font-size: clamp(45px, 13vw, 90px);
-      margin: 15px 0;
-      line-height: 1;
-      text-shadow: 0 0 25px rgba(255,70,160,.7);
-    }
-
-    .hero p {
-      max-width: 500px;
-      color: #f8dce9;
-      line-height: 1.7;
-      font-size: 17px;
-    }
-
-    .button {
-      margin-top: 30px;
-      padding: 14px 25px;
-      border: none;
-      border-radius: 999px;
-      color: white;
-      background: linear-gradient(135deg,#ff3d91,#9b35ff);
-      box-shadow: 0 8px 30px rgba(255,50,150,.35);
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    /* CARD */
-    .card {
-      width: min(100%, 500px);
-      padding: 30px 25px;
-      border-radius: 28px;
-      background: rgba(255,255,255,.09);
-      border: 1px solid rgba(255,255,255,.16);
-      backdrop-filter: blur(15px);
-      box-shadow: 0 20px 60px rgba(0,0,0,.3);
-    }
-
-    .card h2 {
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-
-    .card p {
-      color: #f5dce8;
-      line-height: 1.8;
-    }
-
-    /* PHOTO */
-    .photo-section {
-      flex-direction: column;
-    }
-
-    .photo {
-      width: min(90vw, 360px);
-      height: 460px;
-      object-fit: cover;
-      border-radius: 30px;
-      box-shadow: 0 0 40px rgba(255,70,170,.35);
-      cursor: pointer;
-      transition: .4s;
-    }
-
-    .photo:hover {
-      transform: scale(1.02);
-    }
-
-    .caption {
-      margin-top: 20px;
-      color: #ffc8e4;
-    }
-
-    /* COUNTDOWN */
-    .counter {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 25px;
-      flex-wrap: wrap;
-    }
-
-    .time {
-      min-width: 70px;
-      padding: 15px 10px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.1);
-    }
-
-    .time strong {
-      display: block;
-      font-size: 25px;
-    }
-
-    .time span {
-      font-size: 11px;
-      color: #ffc2df;
-    }
-
-    /* FINAL */
-    .final h2 {
-      font-size: 45px;
-      margin-bottom: 20px;
-    }
-
-    .heart {
-      font-size: 70px;
-      animation: heartbeat 1.2s infinite;
+    .pulse-heart {
+      animation: heartbeat 1.4s infinite;
     }
 
     @keyframes heartbeat {
-      0%,100% {
+      0%, 100% {
         transform: scale(1);
       }
-
       50% {
-        transform: scale(1.25);
+        transform: scale(1.18);
       }
     }
 
-    /* FLOATING HEARTS */
-    .heart-float {
-      position: fixed;
-      bottom: -30px;
-      pointer-events: none;
-      animation: rise linear forwards;
-      z-index: 10;
+    .fade {
+      animation: fadeIn .5s ease;
     }
 
-    @keyframes rise {
-      to {
-        transform: translateY(-110vh) rotate(360deg);
+    @keyframes fadeIn {
+      from {
         opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    /* MUSIC */
-    .music {
+    .snow {
       position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 15;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.3);
-      background: rgba(20,0,30,.65);
+      top: -20px;
       color: white;
-      font-size: 20px;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
+      font-size: 14px;
+      pointer-events: none;
+      animation: snowfall linear infinite;
+      z-index: 0;
     }
 
-    /* LIGHTBOX */
-    #lightbox {
+    @keyframes snowfall {
+      from {
+        transform: translateY(-20px) rotate(0deg);
+      }
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    .star {
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.9);
-      z-index: 30;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      color: #fff;
+      pointer-events: none;
+      animation: starMove 4s linear infinite;
+      z-index: 0;
     }
 
-    #lightbox img {
-      max-width: 100%;
-      max-height: 90vh;
+    @keyframes starMove {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(.5);
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(100vh) scale(1);
+      }
+    }
+
+    .photo-frame {
+      transform: rotate(-1deg);
+      transition: .4s ease;
+    }
+
+    .photo-frame:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .scroll-box::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .scroll-box::-webkit-scrollbar-thumb {
+      background: #93c5fd;
       border-radius: 20px;
     }
 
-    #lightbox span {
-      position: absolute;
-      top: 20px;
-      right: 25px;
-      font-size: 35px;
-      cursor: pointer;
+    .number-box {
+      width: 40px;
+      height: 48px;
     }
 
-    footer {
-      padding: 30px;
-      text-align: center;
-      color: #d7b9ca;
-      font-size: 13px;
+    @media (min-width: 640px) {
+      .number-box {
+        width: 48px;
+        height: 55px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="bg"></div>
+<div id="root"></div>
 
-  <!-- INTRO -->
-  <div id="intro">
-    <div class="envelope" onclick="openLetter()">
-      <div class="envelope-icon">💌</div>
-      <h2>Ada sesuatu untukmu...</h2>
-      <p>Tap untuk membuka ❤️</p>
-    </div>
-  </div>
+<script type="text/babel">
 
-  <!-- MUSIC -->
-  <button class="music" onclick="toggleMusic()" id="musicBtn">🎵</button>
+const { useState } = React;
 
-  <!-- MUSIC URL GANTI DI SINI -->
-  <audio id="music" loop>
-    <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946b6e2f5e.mp3">
-  </audio>
+function App() {
 
-  <main id="content">
+  const [page, setPage] = useState(1);
+  const [password, setPassword] = useState("");
+  const [wrong, setWrong] = useState(false);
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="small">A little website for</div>
+  const correctPassword = "11111111";
 
-      <h1>My Love ❤️</h1>
+  const photos = [
+    {
+      title: "first meet",
+      image: "https://placehold.co/800x900/dbeafe/2563eb?text=FIRST+MEET",
+      story: "Dari sebuah pertemuan sederhana, ternyata Tuhan sedang menulis awal dari cerita panjang kita."
+    },
+    {
+      title: "hari kita",
+      image: "https://placehold.co/800x900/bfdbfe/1e40af?text=HARI+KITA",
+      story: "Hari itu menjadi salah satu hari yang tidak akan pernah aku lupakan."
+    },
+    {
+      title: "senyum kamu",
+      image: "https://placehold.co/800x900/e0f2fe/0369a1?text=SENYUM+KAMU",
+      story: "Senyummu selalu menjadi salah satu hal sederhana yang bisa membuat hariku jauh lebih baik."
+    },
+    {
+      title: "our moment",
+      image: "https://placehold.co/800x900/cffafe/155e75?text=OUR+MOMENT",
+      story: "Banyak sekali momen yang sudah kita lewati. Ada tawa, air mata, dan cerita yang membuat kita semakin kuat."
+    },
+    {
+      title: "bersama",
+      image: "https://placehold.co/800x900/dbeafe/1d4ed8?text=BERSAMA",
+      story: "Aku belajar bahwa bahagia bukan tentang memiliki hidup yang sempurna, tetapi memiliki seseorang untuk melewati semuanya bersama."
+    },
+    {
+      title: "7 years",
+      image: "https://placehold.co/800x900/e0e7ff/3730a3?text=7+YEARS",
+      story: "Tujuh tahun bukan waktu yang sebentar. Terima kasih karena tetap memilih kita sampai hari ini."
+    }
+  ];
 
-      <p>
-        Aku membuat halaman kecil ini khusus untuk seseorang
-        yang sangat berarti bagiku.
-      </p>
+  const goNext = () => setPage(p => p + 1);
+  const goBack = () => setPage(p => Math.max(1, p - 1));
 
-      <button class="button" onclick="scrollToMessage()">
-        Buka pesanku 💌
-      </button>
-    </section>
+  const enterNumber = (num) => {
+    if (password.length < 8) {
+      const newPassword = password + num;
+      setPassword(newPassword);
+      setWrong(false);
 
-    <!-- MESSAGE -->
-    <section id="message">
-      <div class="card">
-        <h2>Untuk Kamu ❤️</h2>
+      if (newPassword.length === 8) {
+        if (newPassword === correctPassword) {
+          setTimeout(() => setPage(2), 300);
+        } else {
+          setWrong(true);
+        }
+      }
+    }
+  };
 
-        <p>
-          Terima kasih sudah hadir dalam hidupku.
-          Mungkin aku tidak selalu bisa mengatakan semuanya
-          secara langsung, tetapi aku ingin kamu tahu bahwa
-          kamu adalah seseorang yang sangat spesial bagiku.
-          <br><br>
-          Semoga kita selalu bisa membuat banyak kenangan
-          indah bersama.
-          <br><br>
-          Jangan lupa tersenyum hari ini 😊❤️
-        </p>
-      </div>
-    </section>
+  const deleteNumber = () => {
+    setPassword(p => p.slice(0, -1));
+    setWrong(false);
+  };
 
-    <!-- PHOTO -->
-    <section class="photo-section">
+  const reset = () => {
+    setPassword("");
+    setWrong(false);
+    setPage(1);
+  };
 
-      <!-- GANTI URL FOTO INI -->
-      <img
-        class="photo"
-        id="mainPhoto"
-        src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
-        alt="Our Memory"
-        onclick="openPhoto()"
-      >
+  const snowflakes = Array.from({length: 20});
+  const stars = Array.from({length: 15});
 
-      <p class="caption">
-        "Satu foto, sejuta kenangan." ❤️
-      </p>
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4 relative">
 
-    </section>
+      {/* ANIMASI GALERI */}
+      {page >= 7 && page <= 12 && (
+        <>
+          {snowflakes.map((_, i) => (
+            <div
+              key={"snow" + i}
+              className="snow"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDuration: `${4 + Math.random() * 6}s`,
+                animationDelay: `${Math.random() * 5}s`
+              }}
+            >
+              ❄
+            </div>
+          ))}
 
-    <!-- COUNTDOWN -->
-    <section>
-      <div class="card">
+          {stars.map((_, i) => (
+            <div
+              key={"star" + i}
+              className="star"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDuration: `${3 + Math.random() * 5}s`,
+                animationDelay: `${Math.random() * 4}s`
+              }}
+            >
+              ✦
+            </div>
+          ))}
+        </>
+      )}
 
-        <div class="small">Our special day</div>
+      {/* CARD UTAMA */}
+      <main className="w-full max-w-md bg-white/95 backdrop-blur shadow-2xl rounded-3xl overflow-hidden relative z-10">
 
-        <h2>Hari Kita ❤️</h2>
+        {/* PROGRESS BAR */}
+        <div className="h-2 bg-blue-100">
+          <div
+            className="h-full bg-blue-500 transition-all duration-500"
+            style={{
+              width: `${(page / 15) * 100}%`
+            }}
+          ></div>
+        </div>
 
-        <p>
-          Waktu terus berjalan, tetapi kenangan
-          yang kita buat akan selalu menjadi sesuatu
-          yang berharga.
-        </p>
+        <div className="p-6 sm:p-8">
 
-        <div class="counter">
+          {/* PAGE 1 */}
+          {page === 1 && (
+            <div className="fade text-center">
 
-          <div class="time">
-            <strong id="days">0</strong>
-            <span>HARI</span>
-          </div>
+              <div className="text-6xl floating mb-5">💌</div>
 
-          <div class="time">
-            <strong id="hours">0</strong>
-            <span>JAM</span>
-          </div>
+              <h1 className="text-2xl font-bold text-blue-700 mb-3">
+                Hi, love! 💙
+              </h1>
 
-          <div class="time">
-            <strong id="minutes">0</strong>
-            <span>MENIT</span>
-          </div>
+              <p className="text-gray-600 leading-relaxed mb-5">
+                Ayo tebak passwordnya.
+                <br/>
+                <b>I bet you know!!</b>
+              </p>
 
-          <div class="time">
-            <strong id="seconds">0</strong>
-            <span>DETIK</span>
-          </div>
+              <div className="bg-blue-50 rounded-2xl p-4 mb-5">
+                <p className="text-sm text-blue-700">
+                  💡 Clue:
+                  <br/>
+                  "Angka yang selalu mengingatkan kita pada sesuatu yang spesial."
+                </p>
+              </div>
+
+              {/* PASSWORD BOX */}
+              <div className="flex justify-center gap-1.5 mb-3">
+                {[...Array(8)].map((_, i) => (
+                  <div
+                    key={i}
+                    className={`number-box rounded-xl border-2 flex items-center justify-center text-xl font-bold
+                    ${wrong ? "border-red-400 text-red-500" : "border-blue-200 text-blue-600"}`}
+                  >
+                    {password[i] ? "●" : ""}
+                  </div>
+                ))}
+              </div>
+
+              {wrong && (
+                <p className="text-red-500 font-bold text-sm mb-4">
+                  Oooo gituuuu!! Udah lupaaaa! 😭
+                </p>
+              )}
+
+              {/* KEYPAD */}
+              <div className="grid grid-cols-3 gap-3 max-w-xs mx-auto">
+
+                {[1,2,3,4,5,6,7,8,9].map(num => (
+                  <button
+                    key={num}
+                    onClick={() => enterNumber(String(num))}
+                    className="h-12 rounded-2xl bg-blue-50 text-blue-700 font-bold text-lg
+                    hover:bg-blue-100 active:scale-95 transition"
+                  >
+                    {num}
+                  </button>
+                ))}
+
+                <div></div>
+
+                <button
+                  onClick={() => enterNumber("0")}
+                  className="h-12 rounded-2xl bg-blue-50 text-blue-700 font-bold text-lg
+                  hover:bg-blue-100 active:scale-95 transition"
+                >
+                  0
+                </button>
+
+                <button
+                  onClick={deleteNumber}
+                  className="h-12 rounded-2xl bg-red-50 text-red-500 font-bold
+                  hover:bg-red-100 active:scale-95 transition"
+                >
+                  ⌫
+                </button>
+
+              </div>
+            </div>
+          )}
+
+          {/* PAGE 2 */}
+          {page === 2 && (
+            <div className="fade text-center">
+
+              <div className="text-6xl floating mb-5">🥹💙</div>
+
+              <h2 className="text-2xl font-bold text-blue-700 mb-4">
+                Hai, mamas!
+              </h2>
+
+              <p className="text-gray-600 leading-relaxed mb-7">
+                Password betul!
+                <br/>
+                Hebatnya mamas ingat hari keramat kita. 🥰
+              </p>
+
+              <button
+                onClick={goNext}
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white
+                py-3 rounded-2xl font-bold transition active:scale-95"
+              >
+                Ayo lanjut! 💙
+              </button>
+
+            </div>
+          )}
+
+          {/* PAGE 3 */}
+          {page === 3 && (
+            <div className="fade text-center">
+
+              <div className="text-6xl floating mb-5">👀💌</div>
+
+              <h2 className="text-2xl font-bold text-blue-700 mb-8">
+                are you readyyy
+                <br/>
+                to open thiiissss???
+              </h2>
+
+              <div className="space-y-3">
+
+                <button
+                  onClick={goNext}
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white
+                  py-3 rounded-2xl font-bold transition active:scale-95"
+                >
+                  Siap 💙
+                </button>
+
+                <button
+                  onClick={() => setPage(16)}
+                  className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700
+                  py-3 rounded-2xl font-bold transition active:scale-95"
+                >
+                  Nggak dulu 😌
+                </button>
+
+              </div>
+            </div>
+          )}
+
+          {/* CANDaan */}
+          {page === 16 && (
+            <div className="fade text-center">
+
+              <div className="text-7xl floating mb-5">😡</div>
+
+              <h2 className="text-3xl font-bold text-red-500 mb-4">
+                OH GITU SEKARANG!!
+              </h2>
+
+              <p className="text-gray-500 mb-7">
+                Hmmm... tega banget sih 😤
+              </p>
+
+              <button
+                onClick={() => setPage(3)}
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white
+                py-3 rounded-2xl font-bold transition active:scale-95"
+              >
+                bercanda, yang 🥺
+              </button>
+
+            </div>
+          )}
+
+          {/* PAGE 4 */}
+          {page === 4 && (
+            <MessagePage
+              emoji="💙"
+              title="Tujuh tahun, mamas..."
+              text="Tujuh tahun, mamas... Tujuh tahun yang penuh dengan cerita, tawa, air mata, perjuangan, dan banyak sekali kenangan."
+              next="Baca lagi yuk 💌"
+              onNext={goNext}
+            />
+          )}
+
+          {/* PAGE 5 */}
+          {page === 5 && (
+            <MessagePage
+              emoji="🎂"
+              title="Selamat ulang tahun pernikahan ke-7..."
+              text="Selamat ulang tahun pernikahan ke-7 untuk kita. Terima kasih sudah menjadi tempat pulang, teman cerita, dan seseorang yang selalu ada."
+              next="Masih ada lagi 💙"
+              onNext={goNext}
+            />
+          )}
+
+          {/* PAGE 6 */}
+          {page === 6 && (
+            <MessagePage
+              emoji="🥹"
+              title="okaaayyy, last one..."
+              text="Sebelum kita masuk ke cerita-cerita kecil yang tersimpan di dalam foto, ada satu hal yang ingin aku bilang..."
+              next="Buka kenangan kita 📸"
+              onNext={goNext}
+            />
+          )}
+
+          {/* PAGE 7-12 */}
+          {page >= 7 && page <= 12 && (
+            <div className="fade text-center">
+
+              {(() => {
+                const photo = photos[page - 7];
+
+                return (
+                  <>
+                    <div className="relative mb-5">
+
+                      <img
+                        src={photo.image}
+                        alt={photo.title}
+                        className="photo-frame w-full aspect-[4/5] object-cover
+                        rounded-2xl border-8 border-white shadow-xl"
+                      />
+
+                      <span className="absolute top-3 right-3 bg-white/90
+                      text-blue-700 px-3 py-1 rounded-full text-xs font-bold shadow">
+                        {photo.title}
+                      </span>
+
+                    </div>
+
+                    <p className="text-gray-600 leading-relaxed mb-6">
+                      {photo.story}
+                    </p>
+
+                    <button
+                      onClick={goNext}
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-white
+                      py-3 rounded-2xl font-bold transition active:scale-95"
+                    >
+                      {[
+                        "Kenangan berikutnya ✨",
+                        "Lanjut ke cerita 💙",
+                        "Masih ingat? 🥹",
+                        "Next memory 📸",
+                        "Satu lagi yaa 💌",
+                        "Menuju lagu kita 🎵"
+                      ][page - 7]}
+                    </button>
+
+                  </>
+                );
+              })()}
+
+            </div>
+          )}
+
+          {/* PAGE 13 */}
+          {page === 13 && (
+            <div className="fade text-center">
+
+              <div className="text-7xl floating mb-5">🎵💙</div>
+
+              <h2 className="text-3xl font-bold text-blue-700 mb-4">
+                lagu kita
+              </h2>
+
+              <p className="text-gray-600 leading-relaxed mb-7">
+                Ada beberapa lagu yang selalu punya tempat khusus
+                di dalam cerita kita.
+              </p>
+
+              <button
+                onClick={goNext}
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white
+                py-3 rounded-2xl font-bold transition active:scale-95"
+              >
+                Dengerin yuk 🎧
+              </button>
+
+            </div>
+          )}
+
+          {/* PAGE 14 */}
+          {page === 14 && (
+            <div className="fade">
+
+              <div className="text-6xl floating text-center mb-5">
+                🎧
+              </div>
+
+              <h2 className="text-2xl font-bold text-blue-700 text-center mb-6">
+                Our Playlist 💙
+              </h2>
+
+              <div className="space-y-3">
+
+                <a
+                  href="https://www.youtube.com/results?search_query=A+Thousand+Years+Christina+Perri"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block bg-blue-50 hover:bg-blue-100
+                  rounded-2xl p-4 transition"
+                >
+                  <div className="font-bold text-blue-700">
+                    🎵 A Thousand Years
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    Christina Perri
+                  </div>
+                </a>
+
+                <a
+                  href="https://www.youtube.com/results?search_query=Perempuan+yang+sedang+dalam+pelukan+Payung+Teduh"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block bg-blue-50 hover:bg-blue-100
+                  rounded-2xl p-4 transition"
+                >
+                  <div className="font-bold text-blue-700">
+                    🎵 Perempuan yang sedang dalam pelukan
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    Payung Teduh
+                  </div>
+                </a>
+
+              </div>
+
+              <button
+                onClick={goNext}
+                className="w-full mt-6 bg-blue-500 hover:bg-blue-600
+                text-white py-3 rounded-2xl font-bold transition active:scale-95"
+              >
+                Ada surat untukmu 💌
+              </button>
+
+            </div>
+          )}
+
+          {/* PAGE 15 */}
+          {page === 15 && (
+            <div className="fade text-center">
+
+              <div className="text-6xl pulse-heart mb-4">
+                ❤️
+              </div>
+
+              <h1 className="text-2xl font-bold text-blue-700 mb-5">
+                Selamat Ulang Tahun ke-7
+              </h1>
+
+              <div className="scroll-box h-80 overflow-y-auto text-left
+              bg-blue-50 rounded-2xl p-5 mb-6">
+
+                <p className="text-gray-700 leading-7">
+
+                  Untuk mamas tersayang,
+
+                  <br/><br/>
+
+                  Selamat ulang tahun pernikahan kita yang ke-7. 🥹❤️
+
+                  <br/><br/>
+
+                  Rasanya sulit dipercaya kalau kita sudah melewati
+                  perjalanan selama tujuh tahun. Ada begitu banyak
+                  cerita yang sudah kita lalui bersama. Ada hari-hari
+                  yang penuh tawa, ada juga hari-hari yang terasa berat.
+
+                  <br/><br/>
+
+                  Tapi dari semua perjalanan itu, satu hal yang selalu
+                  aku syukuri adalah kita masih bersama sampai hari ini.
+
+                  <br/><br/>
+
+                  Terima kasih karena sudah menjadi seseorang yang
+                  selalu berusaha mengerti aku. Terima kasih karena
+                  sudah sabar menghadapi segala kekurangan dan
+                  kelebihanku.
+
+                  <br/><br/>
+
+                  Mungkin selama perjalanan kita tidak semuanya
+                  berjalan sesuai keinginan. Kita pernah berbeda
+                  pendapat, pernah marah, pernah kecewa, bahkan
+                  mungkin pernah merasa lelah.
+
+                  <br/><br/>
+
+                  Tetapi aku percaya, cinta bukan tentang tidak pernah
+                  bertengkar. Cinta adalah tentang memilih untuk tetap
+                  tinggal, tetap berusaha, dan tetap memperbaiki
+                  semuanya bersama-sama.
+
+                  <br/><br/>
+
+                  Tujuh tahun ini mengajarkanku bahwa rumah bukan
+                  hanya sebuah tempat. Rumah adalah seseorang yang
+                  membuat kita merasa aman dan diterima.
+
+                  <br/><br/>
+
+                  Dan bagiku, kamu adalah rumah itu.
+
+                  <br/><br/>
+
+                  Aku tidak tahu bagaimana perjalanan kita di tahun-tahun
+                  berikutnya. Tetapi aku berharap kita tetap bisa
+                  berjalan berdampingan, saling menggenggam tangan,
+                  saling mendukung, dan saling mencintai.
+
+                  <br/><br/>
+
+                  Semoga kita selalu diberikan kebahagiaan, kesehatan,
+                  kesabaran, dan kekuatan untuk menghadapi apa pun
+                  yang datang.
+
+                  <br/><br/>
+
+                  Terima kasih sudah menjadi bagian terindah dalam
+                  hidupku.
+
+                  <br/><br/>
+
+                  Aku mencintaimu.
+
+                  <br/><br/>
+
+                  Selamat ulang tahun pernikahan ke-7 untuk kita.
+
+                  <br/><br/>
+
+                  Dengan penuh cinta,
+                  <br/>
+                  Istrimu ❤️
+
+                </p>
+
+              </div>
+
+              <button
+                onClick={reset}
+                className="w-full bg-blue-500 hover:bg-blue-600
+                text-white py-3 rounded-2xl font-bold transition active:scale-95"
+              >
+                ulang dari awal 🔄
+              </button>
+
+            </div>
+          )}
 
         </div>
 
-      </div>
-    </section>
+        {/* FOOTER */}
+        <div className="text-center pb-5 text-xs text-blue-300">
+          Made with 💙 for us
+        </div>
 
-    <!-- FINAL -->
-    <section class="final">
+      </main>
 
-      <div>
+    </div>
+  );
+}
 
-        <div class="heart">❤️</div>
 
-        <h2>Stay With Me</h2>
+/* COMPONENT PESAN */
+function MessagePage({emoji, title, text, next, onNext}) {
+  return (
+    <div className="fade text-center">
 
-        <p>
-          Semoga cerita kita terus berlanjut
-          dan menjadi semakin indah.
-        </p>
-
-        <button class="button" onclick="makeHearts()">
-          Kirim ❤️
-        </button>
-
+      <div className="text-7xl floating mb-6">
+        {emoji}
       </div>
 
-    </section>
+      <h2 className="text-2xl font-bold text-blue-700 mb-5">
+        {title}
+      </h2>
 
-  </main>
+      <p className="text-gray-600 leading-relaxed mb-8">
+        {text}
+      </p>
 
-  <!-- LIGHTBOX -->
-  <div id="lightbox" onclick="closePhoto()">
-    <span>×</span>
-    <img id="bigPhoto">
-  </div>
+      <button
+        onClick={onNext}
+        className="w-full bg-blue-500 hover:bg-blue-600
+        text-white py-3 rounded-2xl font-bold transition active:scale-95"
+      >
+        {next}
+      </button>
 
-  <footer>
-    Made with ❤️
-  </footer>
-
-  <script>
-
-    const intro = document.getElementById("intro");
-    const content = document.getElementById("content");
-    const music = document.getElementById("music");
-    const musicBtn = document.getElementById("musicBtn");
-
-    function openLetter() {
-
-      intro.style.opacity = "0";
-
-      setTimeout(() => {
-        intro.style.display = "none";
-        content.classList.add("show");
-
-        music.play().catch(() => {});
-
-        makeHearts();
-
-      }, 900);
-    }
-
-    function toggleMusic() {
-
-      if (music.paused) {
-        music.play();
-        musicBtn.innerHTML = "🎵";
-      } else {
-        music.pause();
-        musicBtn.innerHTML = "🔇";
-      }
-
-    }
-
-    function scrollToMessage() {
-
-      document.getElementById("message")
-        .scrollIntoView({
-          behavior: "smooth"
-        });
-
-    }
-
-    function openPhoto() {
-
-      const lightbox =
-        document.getElementById("lightbox");
-
-      const bigPhoto =
-        document.getElementById("bigPhoto");
-
-      bigPhoto.src =
-        document.getElementById("mainPhoto").src;
-
-      lightbox.style.display = "flex";
-    }
-
-    function closePhoto() {
-      document.getElementById("lightbox")
-        .style.display = "none";
-    }
-
-    function makeHearts() {
-
-      for (let i = 0; i < 15; i++) {
-
-        setTimeout(() => {
-
-          const heart =
-            document.createElement("div");
-
-          heart.className = "heart-float";
-
-          heart.innerHTML =
-            ["❤️","💗","💖","💕","💘"]
-            [Math.floor(Math.random() * 5)];
-
-          heart.style.left =
-            Math.random() * 100 + "vw";
-
-          heart.style.fontSize =
-            (15 + Math.random() * 25) + "px";
-
-          heart.style.animationDuration =
-            (4 + Math.random() * 4) + "s";
-
-          document.body.appendChild(heart);
-
-          setTimeout(() => {
-            heart.remove();
-          }, 8000);
-
-        }, i * 150);
-
-      }
-
-    }
-
-    /* AUTO HEARTS */
-    setInterval(() => {
-
-      if (Math.random() > .5) {
-        makeHearts();
-      }
-
-    }, 7000);
+    </div>
+  );
+}
 
 
-    /*
-      GANTI TANGGAL DI SINI
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
 
-      Contoh:
-      20 Oktober 2026
-    */
-
-    const specialDate =
-      new Date("October 20, 2026 00:00:00");
-
-    function updateCounter() {
-
-      const now = new Date();
-
-      const difference =
-        Math.abs(now - specialDate);
-
-      const days =
-        Math.floor(
-          difference / (1000 * 60 * 60 * 24)
-        );
-
-      const hours =
-        Math.floor(
-          (difference / (1000 * 60 * 60)) % 24
-        );
-
-      const minutes =
-        Math.floor(
-          (difference / (1000 * 60)) % 60
-        );
-
-      const seconds =
-        Math.floor(
-          (difference / 1000) % 60
-        );
-
-      document.getElementById("days")
-        .textContent = days;
-
-      document.getElementById("hours")
-        .textContent = hours;
-
-      document.getElementById("minutes")
-        .textContent = minutes;
-
-      document.getElementById("seconds")
-        .textContent = seconds;
-
-    }
-
-    updateCounter();
-
-    setInterval(updateCounter, 1000);
-
-  </script>
+</script>
 
 </body>
   </html>
